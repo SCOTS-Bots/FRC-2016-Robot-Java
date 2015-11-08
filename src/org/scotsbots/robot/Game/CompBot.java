@@ -22,7 +22,7 @@ public class CompBot extends RobotHardware {
 
 	public String getName() {
 		
-		return null;
+		return "CompBot";
 	}
 
 }
