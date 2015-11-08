@@ -1,8 +1,6 @@
-/*
-!src/
-!build.xml
-!build.properties
-!resources/
-!.gitignore
-!BSD_License_for_WPILib_code.txt
-!doc/
+bin\
+build/
+dist/
+.classpath
+.project
+*.class

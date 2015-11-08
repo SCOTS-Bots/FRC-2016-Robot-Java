@@ -9,9 +9,9 @@ Issues can be found on the [[issues]] page.
 
 Programming Team
 -------------------
-Programming Mentor - Eric Miller <br>
 Lead Programmer - Domenic Portuesi <br>
-Programmer - Austin Johanningsmeier <br>
-Programmer - Justin Williams<br> <br>
+Programmer - Patrick Rosso <br>
+Programmer - Kyle Hoskins <br>
+Programmer - Keegan Fockler <br>
 
 Please feel free to use any of our teams code. Any questions or help needed email me @ dportuesi@gmail.com.
