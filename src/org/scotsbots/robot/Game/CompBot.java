@@ -2,16 +2,29 @@ package org.scotsbots.robot.Game;
 
 import org.scotsbots.robot.AutonStrategy;
 import org.scotsbots.robot.RobotHardware;
+import org.scotsbots.robot.RobotOperation;
 
-public class CompBot extends RobotHardware {
+import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Victor;
 
-	public void initialize() {
+	public class CompBot extends RobotHardware 
+	{
+	public Victor LeftMotor;
+	public Victor RightMotor;
+
+	public void initialize() 
+	{
+		LeftMotor = new Victor (0);
+		RightMotor = new Victor (1);
+		drivetrain = new RobotDrive(LeftMotor,RightMotor);
+		
 		
 		
 	}
 
 	public void teleop() {
-		
+		RobotOperation.driveTank(0);
 		
 	}
 
