@@ -141,6 +141,13 @@ public class RobotOperation
 		Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	
+	public static void driveMecanum (double x, double y, double rotation, double gyroAngle, double speedRatio)
+	{
+		Robot.bot.drivetrain.mecanumDrive_Cartesian(x*speedRatio, y*speedRatio, rotation*speedRatio, gyroAngle);
+		
+		
+	}
+	
 	public static double time = 0;
 	public static double timeReverse = 0;
 
