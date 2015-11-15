@@ -28,7 +28,7 @@ public class MechBot extends RobotHardware
 	}
 
 	public String getName() {
-		return null;
+		return "Mec Bot";
 	}
 
 }

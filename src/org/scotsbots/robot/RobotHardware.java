@@ -42,7 +42,10 @@ public abstract class RobotHardware
 	 */
 	public void logSmartDashboard()
 	{
-		SmartDashboard.putString("Current Robot", Robot.bot.getName());
+		if(Robot.bot.getName() != null)
+		{
+			SmartDashboard.putString("Current Robot", Robot.bot.getName());
+		}
 		
 		if(Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null)
 		{
@@ -55,7 +58,10 @@ public abstract class RobotHardware
 			Robot.bot.accelerometer.startLiveWindowMode();
 		}
 		
-		SmartDashboard.putNumber("Gyro Angle", Robot.bot.gyro.getAngle());
+		if(Robot.bot.gyro != null)
+		{
+			SmartDashboard.putNumber("Gyro Angle", Robot.bot.gyro.getAngle());
+		}
 		
 		if(accelerometer != null)
 		{
