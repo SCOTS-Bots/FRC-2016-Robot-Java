@@ -5,6 +5,7 @@ import org.scotsbots.robot.utils.Gamepad;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
 import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -20,6 +21,20 @@ public class RobotOperation
 		{
 			return getDistance();
 		}
+
+		@Override
+		public void setPIDSourceType(PIDSourceType pidSource)
+		{
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public PIDSourceType getPIDSourceType()
+		{
+			// TODO Auto-generated method stub
+			return null;
+		}
 	}, new PIDOutput() 
 	{
 		public void pidWrite(double d) 
@@ -33,10 +48,6 @@ public class RobotOperation
 	 */
 	public static void initialize()
 	{	
-		if(Robot.bot.gyro != null)
-		{
-			Robot.bot.gyro.initGyro();	
-		}
 		
 		encoderControl.setPercentTolerance(5);
 		
@@ -172,11 +183,7 @@ public class RobotOperation
 		
 	public static void turn(float angle)
 	{
-	    double targetHeading = Robot.bot.gyro.getAngle() + angle;
-	    while (Math.abs(targetHeading - Robot.bot.gyro.getAngle()) > 0.5)
-	    {
-	        Robot.bot.drivetrain.arcadeDrive(0.0, (angle < 0.0)? 0.75: -0.75);
-	    }
+	    //TODO write this
 	}
 	
 	/**

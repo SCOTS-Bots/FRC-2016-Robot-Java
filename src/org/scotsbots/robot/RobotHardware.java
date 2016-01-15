@@ -3,7 +3,6 @@ package org.scotsbots.robot;
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,7 +17,6 @@ public abstract class RobotHardware
 	
 	//universal hardware
 	public RobotDrive drivetrain;
-	public Gyro gyro;
 	public BuiltInAccelerometer accelerometer;
 	public Encoder leftDriveEncoder;
 	public Encoder rightDriveEncoder;
@@ -54,9 +52,7 @@ public abstract class RobotHardware
 		{
 			Robot.bot.accelerometer.startLiveWindowMode();
 		}
-		
-		SmartDashboard.putNumber("Gyro Angle", Robot.bot.gyro.getAngle());
-		
+				
 		if(accelerometer != null)
 		{
 			SmartDashboard.putNumber("Accelerometer X", Robot.bot.accelerometer.getX());
