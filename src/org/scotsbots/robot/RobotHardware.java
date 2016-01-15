@@ -40,7 +40,10 @@ public abstract class RobotHardware
 	 */
 	public void logSmartDashboard()
 	{
-		SmartDashboard.putString("Current Robot", Robot.bot.getName());
+		if(Robot.bot.getName() != null)
+		{
+			SmartDashboard.putString("Current Robot", Robot.bot.getName());
+		}
 		
 		if(Robot.bot.forwardDriveEncoder != null && Robot.bot.sideDriveEncoder != null)
 		{
@@ -52,7 +55,7 @@ public abstract class RobotHardware
 		{
 			Robot.bot.accelerometer.startLiveWindowMode();
 		}
-				
+
 		if(accelerometer != null)
 		{
 			SmartDashboard.putNumber("Accelerometer X", Robot.bot.accelerometer.getX());

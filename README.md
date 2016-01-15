@@ -10,5 +10,10 @@ Issues can be found on the [[issues]] page.
 Programming Team
 -------------------
 Lead Programmer - Domenic Portuesi <br>
-Starter Programmer - Kyle Hoskins <br>
+Programmer - Michael Rood<br>
+Programmer - Stephen Meagher<br>
+Programmer - Patrick Rosso <br>
+Programmer - Kyle Hoskins <br>
+Programmer - Keegan Fockler <br>
+
 Please feel free to use any of our teams code. Any questions or help needed email me @ dportuesi@gmail.com.

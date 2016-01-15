@@ -9,6 +9,8 @@
 
 package org.scotsbots.robot;
 
+import org.scotsbots.robot.Game.CompBot;
+import org.scotsbots.robot.Game.MechBot;
 import org.scotsbots.robot.utils.Logger;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -28,7 +30,7 @@ public class Robot extends IterativeRobot
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots 2015 Robot intializing...");
-    	//bot = new RobotHardwareCompbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new MechBot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesCamera())
