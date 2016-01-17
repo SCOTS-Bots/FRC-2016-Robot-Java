@@ -1,4 +1,4 @@
-package org.scotsbots.robot;
+package org.scotsbots.robotbase;
 
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;

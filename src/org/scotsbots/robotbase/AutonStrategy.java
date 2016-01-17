@@ -1,4 +1,4 @@
-package org.scotsbots.robot;
+package org.scotsbots.robotbase;
 
 /**
  * An abstract class for creating autonomous strategies. Make sure to add the auton strat to the list.

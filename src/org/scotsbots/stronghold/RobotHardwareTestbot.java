@@ -1,11 +1,12 @@
-package org.scotsbots.robot.stronghold;
+package org.scotsbots.stronghold;
 
-import org.scotsbots.robot.AutonStrategy;
-import org.scotsbots.robot.RobotHardware;
-import org.scotsbots.robot.RobotOperation;
+import org.scotsbots.robotbase.AutonStrategy;
+import org.scotsbots.robotbase.RobotHardware;
+import org.scotsbots.robotbase.RobotOperation;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 
 public class RobotHardwareTestbot extends RobotHardware
 {
@@ -18,12 +19,16 @@ public class RobotHardwareTestbot extends RobotHardware
 		right = new Talon(0);
 		left = new Talon(1);
 		drivetrain = new RobotDrive(left, right);
+		
+		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
+		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
+		
 	}
 
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveTank(0);
+		RobotOperation.driveTank(1);
 	}
 
 	@Override
@@ -35,7 +40,7 @@ public class RobotHardwareTestbot extends RobotHardware
 	@Override
 	public String getName()
 	{
-		return null;
+		return "Test bot";
 	}
 
 }

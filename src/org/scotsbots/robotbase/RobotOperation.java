@@ -1,6 +1,6 @@
-package org.scotsbots.robot;
+package org.scotsbots.robotbase;
 
-import org.scotsbots.robot.utils.Gamepad;
+import org.scotsbots.robotbase.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
