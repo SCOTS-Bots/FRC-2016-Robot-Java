@@ -30,10 +30,13 @@ public abstract class RobotHardware
 	public static DigitalInput switch1;
 	public static DigitalInput switch2;
 	
+	public RobotVision vision;
+	
 	public abstract void initialize();
 	public abstract void teleop();
 	public abstract AutonStrategy getSwitchedAuton();
 	public abstract String getName();
+	
 
 	/**
 	 * Logs data to Smartdashboard. override and call super.logSmartDashboard() to use.

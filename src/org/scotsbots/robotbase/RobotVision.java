@@ -1,9 +1,9 @@
 package org.scotsbots.robotbase;
 
+import java.io.IOException;
+
 import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
@@ -15,21 +15,40 @@ import edu.wpi.first.wpilibj.vision.AxisCamera;
  */
 public class RobotVision
 {
-	int session;
-    static Image frame;
-    static AxisCamera camera;
+	protected int session;
+    protected Image frame;
+    protected AxisCamera camera;
+    protected String ip;
     
-	public static void initialize()
+    public RobotVision(String ip)
+    {
+    	this.ip = ip;
+    }
+	
+    public void initialize()
 	{
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        camera = new AxisCamera("10.47.76.20");
+        camera = new AxisCamera(ip);
 	}
 	
-	public static void stream()
+	public void stream()
 	{	        
-		NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
 		camera.getImage(frame);
-        NIVision.imaqDrawShapeOnImage(frame, frame, rect, DrawMode.DRAW_VALUE, ShapeMode.SHAPE_OVAL, 0.0f);
         CameraServer.getInstance().setImage(frame);
+	}
+	
+	/**
+	 * Runs GRIP image processing on the RoboRIO. Required for GRIP vision usage.
+	 * @param filename name of GRIP file on RoboRIO.
+	 */
+	public static void runGRIP(String filename)
+	{
+		try
+		{
+			Runtime.getRuntime().exec(new String[]{"/usr/local/frc/JRE/bin/java", "-jar", "grip.jar", filename});
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

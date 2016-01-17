@@ -33,9 +33,9 @@ public class Robot extends IterativeRobot
     	bot = new RobotHardwareTestbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
-    	if(bot.usesCamera())
+    	if(bot.usesCamera() && bot.vision != null)
     	{
-    		RobotVision.initialize();
+    		bot.vision.initialize();
     	}
 		Logger.riolog("S.C.O.T.S. Bots Robot Base code intialized.");
     }
@@ -61,9 +61,9 @@ public class Robot extends IterativeRobot
     
     public void teleopPeriodic() 
     {
-    	if(bot.usesCamera())
+    	if(bot.usesCamera() && bot.vision != null)
     	{
-    		RobotVision.stream();
+    		bot.vision.stream();
     	}
 		bot.teleop();
     	bot.logSmartDashboard();
