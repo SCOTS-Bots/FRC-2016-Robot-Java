@@ -2,6 +2,11 @@ package org.scotsbots.robotbase.utils;
 
 import java.util.Calendar;
 
+/**
+ * This used to do cool stuff. Now it just logs.
+ * @author Howell Robotics
+ *
+ */
 public class Logger 
 {	
 	/**

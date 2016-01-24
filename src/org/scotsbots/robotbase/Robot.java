@@ -1,16 +1,16 @@
 /*----------------------------------------------------------------------------*/
-
-/* Copyright (c) FIRST 2015. All Rights Reserved.                             */
+/* Copyright (c) FIRST 2016. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-/* Howell SCOTS Bots 2015 - Competition Season                                */
+/* Howell SCOTS Bots 2016 - Competition Season                                */
 /*----------------------------------------------------------------------------*/
 
 package org.scotsbots.robotbase;
 
 import org.scotsbots.robotbase.utils.Logger;
+import org.scotsbots.stronghold.RobotHardwareCompbot;
 import org.scotsbots.stronghold.RobotHardwareTestbot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -30,7 +30,7 @@ public class Robot extends IterativeRobot
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
-    	bot = new RobotHardwareTestbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new RobotHardwareCompbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesCamera() && bot.vision != null)

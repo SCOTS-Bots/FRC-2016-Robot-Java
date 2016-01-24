@@ -188,12 +188,17 @@ public class RobotOperation
 		return true;
 	}
 		
+	/**
+	 * @deprecated not even written.
+	 * @param angle
+	 */
 	public static void turn(float angle)
 	{
 	    //TODO write this
 	}
 	
 	/**
+	 * @deprecated
 	 * Doesn't work.
 	*/
 	public static void turnTimedMillis(double timeToTravel)
