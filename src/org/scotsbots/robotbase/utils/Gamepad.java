@@ -4,8 +4,10 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * Replaces WPILib joystick class for easily acessing buttons.
+ * <strong>Configured for 'D' switch setting on back of controller!</strong>
  * <br> Originally adapted from Adambots code.
- * @author Nathan Fenner - Modified by Domenic
+ * @author Nathan Fenner
+ * @author Domenic Portuesi
  *
  */
 public class Gamepad
@@ -54,36 +56,34 @@ public class Gamepad
 	/**
 	 * XBOX 360 Left Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_LEFT_X = 0;
+	private static final int AXIS_LEFT_X = 1;
 
 	/**
 	 * XBOX 360 Left Vertical Axis (Up=-1, Down=1)
 	 */
-	private static final int AXIS_LEFT_Y = 1;
-
-	/**
-	 * XBOX 360 Left Trigger
-	 */
-	private static final int AXIS_LEFT_T = 2;
-	
-	/**
-	 * XBOX 360 Left Trigger
-	 */
-	private static final int AXIS_RIGHT_T = 3;
+	private static final int AXIS_LEFT_Y = 2;
 	
 	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_RIGHT_X = 4;
+	private static final int AXIS_RIGHT_X = 3;
+	
+	private static final int AXIS_DPAD_X = 5;
+	
+	private static final int AXIS_DPAD_Y = 6;
 
 	/**
 	 * XBOX 360 Right Vertical Axis (Up=-1, Down=1)
 	 */
-	private static final int AXIS_RIGHT_Y = 5;
+	private static final int AXIS_RIGHT_Y = 4;
 
 	private static final int BUTTON_R3 = 12;
 	
 	private static final int BUTTON_L3 = 11;
+	
+	private static final int BUTTON_RT = 8;
+	private static final int BUTTON_LT = 7;
+
 
 	private Gamepad(int port)
 	{
@@ -151,34 +151,47 @@ public class Gamepad
 		return createDeadzone(joystick.getRawAxis(AXIS_RIGHT_Y));
 	}
 	
+	/*
 	public double getLeftT()
 	{
 		return createDeadzoneTrigger(joystick.getRawAxis(AXIS_LEFT_T));
 	}
-
+	*/
+	public boolean getLeftT()
+	{
+		return joystick.getRawButton(BUTTON_LT);
+	}
+	/*
 	public double getRightT()
 	{
 		return createDeadzoneTrigger(joystick.getRawAxis(AXIS_RIGHT_T));
 	}
+	*/
+	
+	public boolean getRightT()
+	{
+		return joystick.getRawButton(BUTTON_RT);
+	}
+	
 	
 	public boolean getDPadLeft()
 	{
-		return joystick.getPOV() > 260 && joystick.getPOV() < 280;
+		return joystick.getRawAxis(AXIS_DPAD_X) == -1;
 	}
 
 	public boolean getDPadRight()
 	{
-		return joystick.getPOV() > 80 && joystick.getPOV() < 100;
+		return joystick.getRawAxis(AXIS_DPAD_X) == 1;
 	}
 
 	public boolean getDPadUp()
 	{
-		return joystick.getPOV() > 345 || (joystick.getPOV() < 15 && joystick.getPOV() >= 0);
+		return joystick.getRawAxis(AXIS_DPAD_Y) == -1;
 	}
 	
 	public boolean getDPadDown()
 	{
-		return joystick.getPOV() > 165 && joystick.getPOV() < 195;
+		return joystick.getRawAxis(AXIS_DPAD_Y) == 1;
 	}
 	
 	/**
