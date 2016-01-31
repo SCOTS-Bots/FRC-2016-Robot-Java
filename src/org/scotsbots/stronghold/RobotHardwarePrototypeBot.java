@@ -3,14 +3,14 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
+import org.scotsbots.robotbase.RobotVision;
 import org.scotsbots.robotbase.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 
-public class RobotHardwareCompbot extends RobotHardware
+public class RobotHardwarePrototypeBot extends RobotHardware
 {
 	public Victor leftBackMotor;
 	public Victor leftFrontMotor;
@@ -24,6 +24,7 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void initialize()
 	{
+		vision = new RobotVision("", "cam0");
 		leftBackMotor = new Victor(2);
 		leftFrontMotor = new Victor(0);
 		rightBackMotor = new Victor(1);
@@ -74,7 +75,12 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public String getName()
 	{
-		return "Compbot";
+		return "Prototype";
+	}
+	
+	public boolean usesUSBCamera()
+	{
+		return true;
 	}
 
 }

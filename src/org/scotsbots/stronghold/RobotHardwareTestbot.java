@@ -3,6 +3,7 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
+import org.scotsbots.robotbase.RobotVision;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
@@ -16,6 +17,8 @@ public class RobotHardwareTestbot extends RobotHardware
 	@Override
 	public void initialize()
 	{
+		vision = new RobotVision("10.47.76.20", "cam1");
+		
 		leftMotors = new Talon(0);
 		rightMotors = new Talon(1);
 		drivetrain = new RobotDrive(leftMotors, rightMotors);
@@ -40,6 +43,11 @@ public class RobotHardwareTestbot extends RobotHardware
 	public String getName()
 	{
 		return "Testbot";
+	}
+	
+	public boolean usesUSBCamera()
+	{
+		return true;
 	}
 
 }

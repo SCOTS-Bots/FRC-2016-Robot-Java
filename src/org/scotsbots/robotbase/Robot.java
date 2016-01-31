@@ -10,7 +10,7 @@
 package org.scotsbots.robotbase;
 
 import org.scotsbots.robotbase.utils.Logger;
-import org.scotsbots.stronghold.RobotHardwareCompbot;
+import org.scotsbots.stronghold.RobotHardwarePrototypeBot;
 import org.scotsbots.stronghold.RobotHardwareTestbot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -30,12 +30,16 @@ public class Robot extends IterativeRobot
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
-    	bot = new RobotHardwareCompbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new RobotHardwareTestbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
-    	if(bot.usesCamera() && bot.vision != null)
+    	if(bot.usesIPCamera() && bot.vision != null)
     	{
     		bot.vision.initialize();
+    	}
+    	if(bot.usesUSBCamera() && bot.vision != null)
+    	{
+    		bot.vision.initUSBCam();
     	}
 		Logger.riolog("S.C.O.T.S. Bots Robot Base code intialized.");
     }
@@ -61,7 +65,7 @@ public class Robot extends IterativeRobot
     
     public void teleopPeriodic() 
     {
-    	if(bot.usesCamera() && bot.vision != null)
+    	if(bot.usesIPCamera() && bot.vision != null)
     	{
     		bot.vision.stream();
     	}

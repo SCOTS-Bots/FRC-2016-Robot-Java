@@ -66,7 +66,20 @@ public abstract class RobotHardware
 		}
 	}
 	
-	public boolean usesCamera()
+	/**
+	 * Only needed for custom  (drawing stuff on screen). IP Camera will still work without calling this.
+	 * @return
+	 */
+	public boolean usesIPCamera()
+	{
+		return false;
+	}
+	
+	/**
+	 * Call for using the USB camera. Intializes the CameraServer for showing it on the SmartDashboard.
+	 * @return
+	 */
+	public boolean usesUSBCamera()
 	{
 		return false;
 	}

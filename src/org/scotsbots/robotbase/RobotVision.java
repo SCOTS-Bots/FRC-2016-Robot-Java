@@ -19,17 +19,26 @@ public class RobotVision
     protected Image frame;
     protected AxisCamera camera;
     protected String ip;
+    protected String cam;
     
-    public RobotVision(String ip)
+    public RobotVision(String ip, String cam)
     {
     	this.ip = ip;
+    	this.cam = cam;
     }
 	
     public void initialize()
 	{
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-        camera = new AxisCamera(ip);
+        camera = new AxisCamera(ip);   
 	}
+    
+    public void initUSBCam()
+    {
+    	CameraServer camera = CameraServer.getInstance();
+        camera.setQuality(50);
+        camera.startAutomaticCapture(cam);
+    }
 	
 	public void stream()
 	{	        
