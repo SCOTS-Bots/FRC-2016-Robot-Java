@@ -21,6 +21,9 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	public Victor shooterMotor;
 	public Victor scoopMotor;
 	
+	private int autoShootTimer = 0;
+	private boolean autoFireMode = false;
+	
 	@Override
 	public void initialize()
 	{
@@ -35,6 +38,8 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		
 		shooterMotor = new Victor(5);
 		scoopMotor = new Victor(4);
+		
+		autoFireMode = false;
 	}
 
 	@Override
@@ -64,6 +69,45 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 			shooterMotor.set(0);
 		}	
 		
+		//auto shoot
+		if(Gamepad.secondaryAttackJoystick.getY())
+		{
+			//if it is in the right location //TODO add when sensor is addded
+			autoFireMode = true;
+		}
+		
+		if(autoFireMode == true)
+		{
+			autoShootTimer++;
+			if(autoShootTimer < 25)
+			{
+				scoopMotor.set(-1);
+			}
+			else if(autoShootTimer > 50 && autoShootTimer < 150)
+			{
+				scoopMotor.set(1);
+			}
+			else
+			{
+				scoopMotor.set(0);
+			}
+			
+			if(autoShootTimer > 25 && autoShootTimer < 150)
+			{
+				shooterMotor.set(1);
+			}
+			else	
+			{
+				shooterMotor.set(0);
+			}		
+			
+			if(autoShootTimer > 225)
+			{
+				autoFireMode = false;
+				autoShootTimer = 0;
+			}
+		}
+
 	}
 
 	@Override
