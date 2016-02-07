@@ -45,7 +45,7 @@ public class RobotHardwareTestbot extends RobotHardware
 		return "Testbot";
 	}
 	
-	public boolean usesUSBCamera()
+	public boolean usesSingleUSBCamera()
 	{
 		return true;
 	}

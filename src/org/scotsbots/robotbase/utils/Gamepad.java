@@ -51,8 +51,8 @@ public class Gamepad
 	/**
 	 * XBOX 360 Start Button
 	 */
-	private static final int BUTTON_START = 8;
-
+	private static final int BUTTON_START = 10;
+	
 	/**
 	 * XBOX 360 Left Horizontal Axis (Left=-1, Right=1)
 	 */

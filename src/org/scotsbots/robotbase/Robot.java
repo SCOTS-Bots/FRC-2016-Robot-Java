@@ -27,6 +27,8 @@ public class Robot extends IterativeRobot
 	public static AutonStrategy selectedAuton = null;
 	public static RobotHardware bot = null;	
 	
+	RobotVisionDualUSB cameraFeeds;
+	
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
@@ -37,10 +39,16 @@ public class Robot extends IterativeRobot
     	{
     		bot.vision.initialize();
     	}
-    	if(bot.usesUSBCamera() && bot.vision != null)
+    	if(bot.usesSingleUSBCamera() && bot.vision != null)
     	{
     		bot.vision.initUSBCam();
     	}
+    	if(bot.usesDualUSBCameras())
+    	{
+    		cameraFeeds = new RobotVisionDualUSB();
+    		cameraFeeds.init();
+    	}
+    	
 		Logger.riolog("S.C.O.T.S. Bots Robot Base code intialized.");
     }
     
@@ -56,6 +64,10 @@ public class Robot extends IterativeRobot
     {
     	selectedAuton.update();
     	bot.logSmartDashboard();
+    	if(bot.usesDualUSBCameras())
+    	{
+    		cameraFeeds.run();
+    	}
     }
     
     public void teleopInit()
@@ -71,6 +83,10 @@ public class Robot extends IterativeRobot
     	}
 		bot.teleop();
     	bot.logSmartDashboard();
+    	if(bot.usesDualUSBCameras())
+    	{
+    		cameraFeeds.run();
+    	}
     }
 
     public void testInit()
@@ -82,11 +98,19 @@ public class Robot extends IterativeRobot
     {
     	LiveWindow.run();
     	bot.logSmartDashboard();
+    	if(bot.usesDualUSBCameras())
+    	{
+    		cameraFeeds.run();
+    	}
     }
     
     public void disabledInit() 
     {
 		RobotOperation.reset();
+		if(bot.usesDualUSBCameras())
+		{
+			cameraFeeds.end();
+		}
     }
     
     public void disabledPeriodic()

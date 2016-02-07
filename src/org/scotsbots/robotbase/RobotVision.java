@@ -3,10 +3,13 @@ package org.scotsbots.robotbase;
 import java.io.IOException;
 
 import com.ni.vision.NIVision;
+import com.ni.vision.VisionException;
 import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  * Handles extremely basic vision on Smartdashboard.
@@ -26,7 +29,7 @@ public class RobotVision
     	this.ip = ip;
     	this.cam = cam;
     }
-	
+
     public void initialize()
 	{
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
@@ -38,6 +41,12 @@ public class RobotVision
     	CameraServer camera = CameraServer.getInstance();
         camera.setQuality(50);
         camera.startAutomaticCapture(cam);
+    }
+    
+    public void changeCamera()
+    {
+    	CameraServer camera = CameraServer.getInstance();
+    	
     }
 	
 	public void stream()

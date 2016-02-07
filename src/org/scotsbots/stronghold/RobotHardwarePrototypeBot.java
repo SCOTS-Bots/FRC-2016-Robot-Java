@@ -110,6 +110,11 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 
 	}
 
+	public boolean usesDualUSBCameras()
+	{
+		return true;
+	}
+	
 	@Override
 	public AutonStrategy getSwitchedAuton()
 	{
@@ -121,10 +126,4 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	{
 		return "Prototype";
 	}
-	
-	public boolean usesUSBCamera()
-	{
-		return true;
-	}
-
 }

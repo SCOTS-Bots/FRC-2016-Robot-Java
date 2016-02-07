@@ -79,7 +79,12 @@ public abstract class RobotHardware
 	 * Call for using the USB camera. Intializes the CameraServer for showing it on the SmartDashboard.
 	 * @return
 	 */
-	public boolean usesUSBCamera()
+	public boolean usesSingleUSBCamera()
+	{
+		return false;
+	}
+	
+	public boolean usesDualUSBCameras()
 	{
 		return false;
 	}
