@@ -1,6 +1,7 @@
 package org.scotsbots.stronghold;
 
 import org.scotsbots.robotbase.AutonStrategy;
+import org.scotsbots.robotbase.Robot;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;
@@ -27,7 +28,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	@Override
 	public void initialize()
 	{
-		vision = new RobotVision("", "cam0");
+		vision = new RobotVision("10.47.76.20", "cam0");
 		leftBackMotor = new Victor(2);
 		leftFrontMotor = new Victor(0);
 		rightBackMotor = new Victor(1);
@@ -72,45 +73,74 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		//auto shoot
 		if(Gamepad.secondaryAttackJoystick.getY())
 		{
-			//if it is in the right location //TODO add when sensor is addded
+			//if it is in the right location
 			autoFireMode = true;
 		}
 		
-		if(autoFireMode == true)
+		if(autoFireMode)
 		{
-			autoShootTimer++;
-			if(autoShootTimer < 25)
-			{
-				scoopMotor.set(-1);
-			}
-			else if(autoShootTimer > 50 && autoShootTimer < 150)
-			{
-				scoopMotor.set(1);
-			}
-			else
-			{
-				scoopMotor.set(0);
-			}
-			
-			if(autoShootTimer > 25 && autoShootTimer < 150)
-			{
-				shooterMotor.set(1);
-			}
-			else	
-			{
-				shooterMotor.set(0);
-			}		
-			
-			if(autoShootTimer > 225)
+			if(autoShoot())
 			{
 				autoFireMode = false;
-				autoShootTimer = 0;
 			}
 		}
 
+		if(Gamepad.secondaryAttackJoystick.getStart())
+		{	
+			//toggleCamera();
+		}
 	}
 
-	public boolean usesDualUSBCameras()
+	/**
+	 * 
+	 * @return Done shooting?
+	 */
+	public boolean autoShoot()
+	{
+		autoShootTimer++;
+		if(autoShootTimer < 5)
+		{
+			scoopMotor.set(1);
+		}
+		else if(autoShootTimer > 50 && autoShootTimer < 150)
+		{
+			scoopMotor.set(-1);
+		}
+		else
+		{
+			scoopMotor.set(0);
+		}
+		
+		if(autoShootTimer > 5 && autoShootTimer < 150)
+		{
+			shooterMotor.set(1);
+		}
+		else	
+		{
+			shooterMotor.set(0);
+		}		
+		
+		if(autoShootTimer > 150)
+		{
+			autoShootTimer = 0;
+			return true;
+		}
+		return false;
+	}
+	
+	public void toggleCamera()
+	{
+		if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam1)
+		{
+			Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam2);
+		}
+		else if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam2)
+		{
+			Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam1);
+		}
+	}
+	
+	public boolean usesSingleUSBCamera()
 	{
 		return true;
 	}

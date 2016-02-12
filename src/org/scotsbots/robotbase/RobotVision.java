@@ -42,12 +42,6 @@ public class RobotVision
         camera.setQuality(50);
         camera.startAutomaticCapture(cam);
     }
-    
-    public void changeCamera()
-    {
-    	CameraServer camera = CameraServer.getInstance();
-    	
-    }
 	
 	public void stream()
 	{	        

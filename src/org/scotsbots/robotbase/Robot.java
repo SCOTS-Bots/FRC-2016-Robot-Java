@@ -27,12 +27,12 @@ public class Robot extends IterativeRobot
 	public static AutonStrategy selectedAuton = null;
 	public static RobotHardware bot = null;	
 	
-	RobotVisionDualUSB cameraFeeds;
+	public static RobotVisionDualUSB cameraFeeds;
 	
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
-    	bot = new RobotHardwarePrototypeBot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new RobotHardwareTestbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesIPCamera() && bot.vision != null)
@@ -100,7 +100,7 @@ public class Robot extends IterativeRobot
     	bot.logSmartDashboard();
     	if(bot.usesDualUSBCameras())
     	{
-    		cameraFeeds.run();
+    		cameraFeeds.updateCam();
     	}
     }
     

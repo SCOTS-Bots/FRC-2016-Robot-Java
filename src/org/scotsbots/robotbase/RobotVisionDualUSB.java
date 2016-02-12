@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 public class RobotVisionDualUSB
 {
-	private final int cam1;
-	private final int cam2;
-	private int curCam;
+	public final int cam1;
+	public final int cam2;
+	public int curCam;
 	private Image frame;
 	private CameraServer server;
 	
@@ -32,9 +32,11 @@ public class RobotVisionDualUSB
 		changeCam(cam1);
 	}
 	
+	//TODO This function may not be needed.
+	/*
 	public void run()
 	{
-		if(Gamepad.secondaryAttackJoystick.getStart())
+		if(Gamepad.secondaryAttackJoystick.getStart())     //Camera toggle
 		{	
 			if(curCam == cam1)
 			{
@@ -48,6 +50,7 @@ public class RobotVisionDualUSB
 		
 		updateCam();
 	}
+	*/
 	
 	/**
 	 * Stop aka close camera stream
