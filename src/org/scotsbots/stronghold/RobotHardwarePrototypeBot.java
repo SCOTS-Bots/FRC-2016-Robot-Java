@@ -9,6 +9,7 @@ import org.scotsbots.robotbase.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
 
 public class RobotHardwarePrototypeBot extends RobotHardware
@@ -25,6 +26,8 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	private int autoShootTimer = 0;
 	private boolean autoFireMode = false;
 	
+	public Spark manipulator;
+	
 	@Override
 	public void initialize()
 	{
@@ -39,6 +42,8 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		
 		shooterMotor = new Victor(5);
 		scoopMotor = new Victor(4);
+		
+		manipulator = new Spark(6);
 		
 		autoFireMode = false;
 	}
@@ -89,6 +94,19 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		{	
 			//toggleCamera();
 		}
+		
+		if(Gamepad.secondaryAttackJoystick.getB())
+		{
+			manipulator.set(1);
+		}
+		else if(Gamepad.secondaryAttackJoystick.getX())
+		{
+			manipulator.set(-1);
+		}
+		else
+		{
+			manipulator.set(0);
+		}
 	}
 
 	/**
@@ -130,13 +148,16 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	
 	public void toggleCamera()
 	{
-		if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam1)
+		if(Robot.cameraFeeds != null)
 		{
-			Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam2);
-		}
-		else if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam2)
-		{
-			Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam1);
+			if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam1)
+			{
+				Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam2);
+			}
+			else if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam2)
+			{
+				Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam1);
+			}
 		}
 	}
 	
@@ -148,7 +169,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	@Override
 	public AutonStrategy getSwitchedAuton()
 	{
-		return null;
+		return new AutonStrategyLowbar();
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package org.scotsbots.stronghold;
 
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.Robot;
-import org.scotsbots.robotbase.utils.Gamepad;
 
 public class AutonStrategyLowbar extends AutonStrategy
 {
@@ -15,7 +14,7 @@ public class AutonStrategyLowbar extends AutonStrategy
 	@Override
 	public void intialize()
 	{
-		
+		stopped = false;
 	}
 
 	@Override
@@ -34,7 +33,11 @@ public class AutonStrategyLowbar extends AutonStrategy
 		{
 			Robot.bot.drivetrain.drive(-1, 1);
 		}
-		else if(time >= 200)
+		else
+		{
+			Robot.bot.drivetrain.drive(0, 0);
+		}
+		if(time >= 200)
 		{
 			if(Robot.bot instanceof RobotHardwarePrototypeBot)
 			{
