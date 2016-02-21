@@ -74,24 +74,24 @@ public class RobotOperation
 	
 	/**
 	 * Drives in tank, multiplies speed by speed ratio.
-	 * @param joystickSet 0 - Only gamepads, 1 - attacks and gamepad, 2 - only one gamepad
+	 * @param joystickSet 0 - Only gamepads, 1 - attacks and gamepad
 	 * @param speedRatio range of motor power
 	 */
 	public static void driveTank(int joystickSet, double speedRatio)
 	{
+		
+		
 		if(joystickSet == 0)
 		{
 			Robot.bot.drivetrain.tankDrive(Gamepad.primaryGamepad.getLeftY() * speedRatio, Gamepad.primaryGamepad.getRightY() * speedRatio, true);
 		}
 		if(joystickSet == 1)
 		{
-			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY()* speedRatio, Gamepad.primaryRightAttackJoystick.getY()* speedRatio, true);
+			double leftThrottle = ((1-Gamepad.primaryLeftAttackJoystick.getZ()) * .35) + .65;
+			double rightThrottle = ((1-Gamepad.primaryRightAttackJoystick.getZ()) * .35) + .65;
+			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY() * speedRatio * leftThrottle, Gamepad.primaryRightAttackJoystick.getY() * speedRatio * rightThrottle, true);
 		}
-		if(joystickSet == 2)
-		{
-			Robot.bot.drivetrain.tankDrive(Gamepad.primaryGamepad.getLeftY() * speedRatio, Gamepad.primaryGamepad.getRightY() * speedRatio, true);
-		}
-		
+
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
 	}
 	

@@ -90,10 +90,12 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 			}
 		}
 
+		/* For when we have dual usbs
 		if(Gamepad.secondaryAttackJoystick.getStart())
 		{	
 			//toggleCamera();
 		}
+		*/
 		
 		if(Gamepad.secondaryAttackJoystick.getB())
 		{
@@ -146,6 +148,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		return false;
 	}
 	
+	/* for dual Usbs
 	public void toggleCamera()
 	{
 		if(Robot.cameraFeeds != null)
@@ -160,6 +163,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 			}
 		}
 	}
+	*/
 	
 	public boolean usesSingleUSBCamera()
 	{

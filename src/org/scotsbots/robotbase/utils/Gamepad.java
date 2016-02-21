@@ -66,7 +66,7 @@ public class Gamepad
 	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_RIGHT_X = 3;
+	private static final int AXIS_RIGHT_X = 7;
 	
 	private static final int AXIS_DPAD_X = 5;
 	
@@ -90,6 +90,11 @@ public class Gamepad
 		joystick = new Joystick(port);
 	}
 
+	//HOW THEY ARE NAMED:
+	//Set1 : PrimaryLeftAttack, PrimaryRightAttack, SecondaryAttack
+	//set2 : Primary Gamepad, Secondary Gamepad
+	//Your set of controllers is set when you called tank drive!
+	//-Domenic
 	public static Gamepad primaryGamepad = new Gamepad(0);
 	public static AttackJoystick primaryLeftAttackJoystick = new AttackJoystick(0);
 	public static AttackJoystick primaryRightAttackJoystick = new AttackJoystick(1);
