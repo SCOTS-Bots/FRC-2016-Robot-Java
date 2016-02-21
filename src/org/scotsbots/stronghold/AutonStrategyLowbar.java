@@ -27,11 +27,15 @@ public class AutonStrategyLowbar extends AutonStrategy
 		
 		if(time >= 0 && time <= 100)
 		{
-			Robot.bot.drivetrain.drive(-1, 0);
+			Robot.bot.drivetrain.drive(-0.6, 0);
 		}
-		else if(time >= 100 && time <= 200)
+		else if(time >= 100 && time <= 110)
 		{
-			Robot.bot.drivetrain.drive(-1, 1);
+			Robot.bot.drivetrain.drive(-0.5, 0.5);
+		}
+		else if(time >= 111 && time <= 175)
+		{
+			Robot.bot.drivetrain.drive(-0.6, 0);
 		}
 		else
 		{
@@ -42,6 +46,17 @@ public class AutonStrategyLowbar extends AutonStrategy
 			if(Robot.bot instanceof RobotHardwarePrototypeBot)
 			{
 				RobotHardwarePrototypeBot protobot = (RobotHardwarePrototypeBot)Robot.bot;
+							
+				if(protobot.autoShoot())
+				{
+					time = 0;
+					stopped = true;
+				}
+			}
+			
+			if(Robot.bot instanceof RobotHardwareCompbot)
+			{
+				RobotHardwareCompbot protobot = (RobotHardwareCompbot)Robot.bot;
 							
 				if(protobot.autoShoot())
 				{

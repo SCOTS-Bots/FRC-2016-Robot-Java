@@ -46,7 +46,7 @@ public class Gamepad
 	/**
 	 * XBOX 360 Back Button
 	 */
-	private static final int BUTTON_BACK = 7;
+	private static final int BUTTON_BACK = 9;
 
 	/**
 	 * XBOX 360 Start Button
@@ -66,7 +66,7 @@ public class Gamepad
 	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_RIGHT_X = 7;
+	private static final int AXIS_RIGHT_X = 3;
 	
 	private static final int AXIS_DPAD_X = 5;
 	
