@@ -56,17 +56,17 @@ public class Gamepad
 	/**
 	 * XBOX 360 Left Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_LEFT_X = 1;
+	private static final int AXIS_LEFT_X = 0;
 
 	/**
 	 * XBOX 360 Left Vertical Axis (Up=-1, Down=1)
 	 */
-	private static final int AXIS_LEFT_Y = 2;
+	private static final int AXIS_LEFT_Y = 1;
 	
 	/**
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
-	private static final int AXIS_RIGHT_X = 3;
+	private static final int AXIS_RIGHT_X = 2;
 	
 	private static final int AXIS_DPAD_X = 5;
 	
@@ -75,7 +75,7 @@ public class Gamepad
 	/**
 	 * XBOX 360 Right Vertical Axis (Up=-1, Down=1)
 	 */
-	private static final int AXIS_RIGHT_Y = 4;
+	private static final int AXIS_RIGHT_Y = 3;
 
 	private static final int BUTTON_R3 = 12;
 	
@@ -181,22 +181,26 @@ public class Gamepad
 	
 	public boolean getDPadLeft()
 	{
-		return joystick.getRawAxis(AXIS_DPAD_X) == -1;
+		return joystick.getPOV() == 270;
+		//return joystick.getRawAxis(AXIS_DPAD_X) < -0.5;
 	}
 
 	public boolean getDPadRight()
 	{
-		return joystick.getRawAxis(AXIS_DPAD_X) == 1;
+		return joystick.getPOV() == 90;
+		//return joystick.getRawAxis(AXIS_DPAD_X) > 0.5;
 	}
 
 	public boolean getDPadUp()
 	{
-		return joystick.getRawAxis(AXIS_DPAD_Y) == -1;
+		return joystick.getPOV() == 0;
+		//return joystick.getRawAxis(AXIS_DPAD_Y) < -0.5;
 	}
 	
 	public boolean getDPadDown()
 	{
-		return joystick.getRawAxis(AXIS_DPAD_Y) == 1;
+		return joystick.getPOV() == 180;
+		//return joystick.getRawAxis(AXIS_DPAD_Y) > 0.5;
 	}
 	
 	/**

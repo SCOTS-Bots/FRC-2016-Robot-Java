@@ -5,6 +5,7 @@ import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;
 import org.scotsbots.robotbase.utils.Gamepad;
+import org.scotsbots.robotbase.utils.Logger;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
@@ -13,11 +14,8 @@ import edu.wpi.first.wpilibj.Victor;
 
 public class RobotHardwareCompbot extends RobotHardware
 {
-	public Victor leftBackMotor;
-	public Victor leftFrontMotor;
-
-	public Victor rightBackMotor;
-	public Victor rightFrontMotor;
+	public Victor leftMotor;
+	public Victor rightMotor;
 
 	public Victor shooterMotor;
 	public Victor scoopMotor;
@@ -34,31 +32,33 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void initialize()
 	{
-		vision = new RobotVision("10.47.76.20", "cam0");
-		leftBackMotor = new Victor(2);
-		leftFrontMotor = new Victor(0);
-		rightBackMotor = new Victor(1);
-		rightFrontMotor = new Victor(3);
-		drivetrain = new RobotDrive(leftBackMotor, leftFrontMotor, rightBackMotor, rightFrontMotor);
 		
-		drivetrain.setInvertedMotor(MotorType.kFrontLeft, true);
+		vision = new RobotVision("10.47.76.20", "cam0");          
+		leftMotor = new Victor(0);         //changed to 0, was 1                      
+		rightMotor = new Victor(1); 	   //changed to 1, was 0                    
+		drivetrain = new RobotDrive(leftMotor, rightMotor);
 		
-		shooterMotor = new Victor(5);
-		scoopMotor = new Victor(4);
-		scoopGate = new Victor(7);
-		winch = new Victor(8);
+		//drivetrain.setInvertedMotor(MotorType.kFrontLeft, true);
 		
-		manipulator = new Spark(6);
-		tapeVertical = new Spark(9);
-		tapeHorizontal = new Spark(10);
+		shooterMotor = new Victor(2);   //changed to 2, WAS 3
+		scoopMotor = new Victor(4);     //changed to 4, was 2
+		scoopGate = new Victor(3);      //changed to 3, was 5
+		winch = new Victor(5);          //changed to 5, was 6
+		
+		manipulator = new Spark(6);   //changed to 6, was 4
+		tapeVertical = new Spark(8);
+		tapeHorizontal = new Spark(7);
 		
 		autoFireMode = false;
+		
 	}
 
 	@Override
 	public void teleop()
 	{
 		RobotOperation.driveTank(1);
+		
+		
 		
 		if(Gamepad.secondaryAttackJoystick.getRightT())
 		{
@@ -98,41 +98,15 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		if(Gamepad.secondaryAttackJoystick.getB())
 		{
-			manipulator.set(1);
+			manipulator.set(-1);
 		}
 		else if(Gamepad.secondaryAttackJoystick.getX())
 		{
-			manipulator.set(-1);
+			manipulator.set(1);
 		}
 		else
 		{
 			manipulator.set(0);
-		}
-		
-		if(Gamepad.secondaryAttackJoystick.getDPadUp())
-		{
-			tapeVertical.set(1);
-		}
-		else if(Gamepad.secondaryAttackJoystick.getDPadDown())
-		{
-			tapeVertical.set(-1);
-		}
-		else
-		{
-			tapeVertical.set(0);
-		}
-		
-		if(Gamepad.secondaryAttackJoystick.getDPadRight())
-		{
-			tapeHorizontal.set(1);
-		}
-		else if(Gamepad.secondaryAttackJoystick.getDPadLeft())
-		{
-			tapeHorizontal.set(-1);
-		}
-		else
-		{
-			tapeHorizontal.set(0);
 		}
 		
 		if(Gamepad.secondaryAttackJoystick.getA())
@@ -147,8 +121,11 @@ public class RobotHardwareCompbot extends RobotHardware
 		{
 			winch.set(0);
 		}
-		
-		scoopGate.set(Gamepad.secondaryAttackJoystick.getLeftY(
+				
+		scoopGate.set(Gamepad.secondaryAttackJoystick.getLeftY() * 0.5);
+				
+		tapeVertical.set(Gamepad.secondaryAttackJoystick.getRightY() * -1);
+		tapeHorizontal.set(Gamepad.secondaryAttackJoystick.getRightX() * 0.5);
 	}
 
 	/**
@@ -196,7 +173,7 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public AutonStrategy getSwitchedAuton()
 	{
-		return new AutonStrategyLowbar();
+		return null;
 	}
 
 	@Override

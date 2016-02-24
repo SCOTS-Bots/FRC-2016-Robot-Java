@@ -10,6 +10,7 @@
 package org.scotsbots.robotbase;
 
 import org.scotsbots.robotbase.utils.Logger;
+import org.scotsbots.stronghold.RobotHardwareCompbot;
 import org.scotsbots.stronghold.RobotHardwarePrototypeBot;
 import org.scotsbots.stronghold.RobotHardwareTestbot;
 
@@ -32,7 +33,7 @@ public class Robot extends IterativeRobot
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
-    	bot = new RobotHardwareTestbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new RobotHardwareCompbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesIPCamera() && bot.vision != null)

@@ -35,7 +35,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		leftBackMotor = new Victor(2);
 		leftFrontMotor = new Victor(0);
 		rightBackMotor = new Victor(1);
-		rightFrontMotor = new Victor(3);
+		rightFrontMotor = new Victor(3); 
 		drivetrain = new RobotDrive(leftBackMotor, leftFrontMotor, rightBackMotor, rightFrontMotor);
 		
 		drivetrain.setInvertedMotor(MotorType.kFrontLeft, true);
