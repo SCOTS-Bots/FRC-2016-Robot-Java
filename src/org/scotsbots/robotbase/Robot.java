@@ -11,6 +11,8 @@ package org.scotsbots.robotbase;
 
 import org.scotsbots.robotbase.utils.Logger;
 import org.scotsbots.stronghold.RobotHardwareCompbot;
+import org.scotsbots.stronghold.RobotHardwarePrototypeBot;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -32,13 +34,11 @@ public class Robot extends IterativeRobot
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
-    	bot = new RobotHardwareCompbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new RobotHardwarePrototypeBot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesIPCamera() && bot.vision != null)
-    	{
-    		bot.vision.initialize();
-    	}
+    	{}
     	if(bot.usesSingleUSBCamera() && bot.vision != null)
     	{
     		bot.vision.initUSBCam();

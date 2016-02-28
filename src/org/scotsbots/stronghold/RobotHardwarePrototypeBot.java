@@ -1,7 +1,5 @@
 package org.scotsbots.stronghold;
 
-import org.scotsbots.robotbase.AutonStrategy;
-import org.scotsbots.robotbase.Robot;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;
@@ -28,6 +26,8 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	
 	public Spark manipulator;
 	
+	public Spark shroud;
+	
 	@Override
 	public void initialize()
 	{
@@ -39,11 +39,15 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		drivetrain = new RobotDrive(leftBackMotor, leftFrontMotor, rightBackMotor, rightFrontMotor);
 		
 		drivetrain.setInvertedMotor(MotorType.kFrontLeft, true);
+		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
+		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
 		
 		shooterMotor = new Victor(5);
 		scoopMotor = new Victor(4);
 		
 		manipulator = new Spark(6);
+		
+		shroud = new Spark(7);
 		
 		autoFireMode = false;
 	}
@@ -109,6 +113,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		{
 			manipulator.set(0);
 		}
+		shroud.set(Gamepad.secondaryAttackJoystick.getLeftY());
 	}
 
 	/**
