@@ -11,11 +11,9 @@ package org.scotsbots.robotbase;
 
 import org.scotsbots.robotbase.utils.Logger;
 import org.scotsbots.stronghold.RobotHardwareCompbot;
-import org.scotsbots.stronghold.RobotHardwarePrototypeBot;
-import org.scotsbots.stronghold.RobotHardwareTestbot;
-
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -27,6 +25,7 @@ public class Robot extends IterativeRobot
 {
 	public static AutonStrategy selectedAuton = null;
 	public static RobotHardware bot = null;	
+	public SendableChooser auton;
 	
 	public static RobotVisionDualUSB cameraFeeds;
 	
@@ -49,7 +48,12 @@ public class Robot extends IterativeRobot
     		cameraFeeds = new RobotVisionDualUSB();
     		cameraFeeds.init();
     	}
-    	
+    	auton = new SendableChooser();
+    	auton.addDefault("Nothing", new AutonStrategyDoNothing());
+    	for(int i = 0; i < Robot.bot.autons.size(); i++)
+    	{
+    		auton.addObject(Robot.bot.autons.get(i).getName(), Robot.bot.autons.get(i));
+    	}
 		Logger.riolog("S.C.O.T.S. Bots Robot Base code intialized.");
 
     }
@@ -58,7 +62,11 @@ public class Robot extends IterativeRobot
     {
     	RobotOperation.reset();
     	//Switches: A1 = true true
-    	selectedAuton = bot.getSwitchedAuton();
+    	//selectedAuton = bot.getSwitchedAuton();
+    	if(auton.getSelected() instanceof AutonStrategy)
+    	{
+    		selectedAuton = (AutonStrategy) auton.getSelected();
+    	}
     	selectedAuton.intialize();
     }
     
@@ -117,9 +125,9 @@ public class Robot extends IterativeRobot
     
     public void disabledPeriodic()
     {
-    	if(bot.getSwitchedAuton() != null)
+    	if(selectedAuton != null)
     	{
-    		SmartDashboard.putString("Auton Mode Switched", bot.getSwitchedAuton().getName());
+    		SmartDashboard.putString("Auton Mode Switched", selectedAuton.getName());
     	}
     }
 }

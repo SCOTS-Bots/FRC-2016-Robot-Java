@@ -34,12 +34,6 @@ public class RobotHardwareTestbot extends RobotHardware
 	}
 
 	@Override
-	public AutonStrategy getSwitchedAuton()
-	{
-		return new AutonStrategyLowbar();
-	}
-
-	@Override
 	public String getName()
 	{
 		return "Testbot";

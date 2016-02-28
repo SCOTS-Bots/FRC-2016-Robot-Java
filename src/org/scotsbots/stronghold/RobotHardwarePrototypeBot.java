@@ -169,12 +169,6 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	{
 		return true;
 	}
-	
-	@Override
-	public AutonStrategy getSwitchedAuton()
-	{
-		return new AutonStrategyLowbar();
-	}
 
 	@Override
 	public String getName()

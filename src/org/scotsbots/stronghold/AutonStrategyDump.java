@@ -22,6 +22,7 @@ public class AutonStrategyDump extends AutonStrategy
 		
 		if(time <= 200)
 		{
+			//reverse
 			Robot.bot.drivetrain.drive(0.75, 0);
 		}
 		else if(time >= 201 && time <= 250)

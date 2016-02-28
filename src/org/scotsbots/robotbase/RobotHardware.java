@@ -1,5 +1,8 @@
 package org.scotsbots.robotbase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -32,9 +35,10 @@ public abstract class RobotHardware
 	
 	public RobotVision vision;
 	
+	public List<AutonStrategy>autons = new ArrayList<AutonStrategy>();
+	
 	public abstract void initialize();
 	public abstract void teleop();
-	public abstract AutonStrategy getSwitchedAuton();
 	public abstract String getName();
 	
 
@@ -103,4 +107,10 @@ public abstract class RobotHardware
 	{
 		return bot = r;
 	}	
+	
+	public void addAuton(AutonStrategy a)
+	{
+		autons.add(a);
+	}
+	
 }

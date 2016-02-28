@@ -39,7 +39,10 @@ public class RobotHardwareCompbot extends RobotHardware
 		drivetrain = new RobotDrive(leftMotor, rightMotor);
 		
 		//drivetrain.setInvertedMotor(MotorType.kFrontLeft, true);
-		
+		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
+		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
+
+
 		shooterMotor = new Victor(2);   //changed to 2, WAS 3
 		scoopMotor = new Victor(4);     //changed to 4, was 2
 		scoopGate = new Victor(3);      //changed to 3, was 5
@@ -51,15 +54,16 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		autoFireMode = false;
 		
+		addAuton(new AutonStrategyDrive());
+		addAuton(new AutonStrategyDump());
+		addAuton(new AutonStrategyLowbar());
 	}
 
 	@Override
 	public void teleop()
 	{
 		RobotOperation.driveTank(1);
-		
-		
-		
+
 		if(Gamepad.secondaryAttackJoystick.getRightT())
 		{
 			scoopMotor.set(1);
@@ -135,11 +139,11 @@ public class RobotHardwareCompbot extends RobotHardware
 	public boolean autoShoot()
 	{
 		autoShootTimer++;
-		if(autoShootTimer < 5)
+		if(autoShootTimer < 7)
 		{
 			scoopMotor.set(1);
 		}
-		else if(autoShootTimer > 50 && autoShootTimer < 150)
+		else if(autoShootTimer > 75 && autoShootTimer < 175)
 		{
 			scoopMotor.set(-1);
 		}
@@ -170,12 +174,6 @@ public class RobotHardwareCompbot extends RobotHardware
 		return true;
 	}
 	
-	@Override
-	public AutonStrategy getSwitchedAuton()
-	{
-		return null;
-	}
-
 	@Override
 	public String getName()
 	{

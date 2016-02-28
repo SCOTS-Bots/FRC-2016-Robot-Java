@@ -87,9 +87,9 @@ public class RobotOperation
 		}
 		if(joystickSet == 1)
 		{
-			double leftThrottle = ((1-Gamepad.primaryLeftAttackJoystick.getZ()) * .35) + .65;
-			double rightThrottle = ((1-Gamepad.primaryRightAttackJoystick.getZ()) * .35) + .65;
-			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY() * speedRatio * leftThrottle, Gamepad.primaryRightAttackJoystick.getY() * speedRatio * rightThrottle, true);
+			//double leftThrottle = ((1-Gamepad.primaryLeftAttackJoystick.getZ()) * .35) + .65;
+			//double rightThrottle = ((1-Gamepad.primaryRightAttackJoystick.getZ()) * .35) + .65;
+			Robot.bot.drivetrain.tankDrive(Gamepad.primaryLeftAttackJoystick.getY() * speedRatio, Gamepad.primaryRightAttackJoystick.getY() * speedRatio, true);
 		}
 
         Timer.delay(0.005);	// wait 5ms to avoid hogging CPU cycles
