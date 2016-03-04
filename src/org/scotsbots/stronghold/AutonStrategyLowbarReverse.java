@@ -3,7 +3,7 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.Robot;
 
-public class AutonStrategyLowbar extends AutonStrategy
+public class AutonStrategyLowbarReverse extends AutonStrategy
 {
 	
 	public int time = 0;
@@ -25,15 +25,15 @@ public class AutonStrategyLowbar extends AutonStrategy
 			time++;
 		}
 		
-		if(time >= 0 && time <= 100)
+		if(time > 0 && time <= 100)
 		{
-			Robot.bot.drivetrain.drive(0.6, 0);
+			Robot.bot.drivetrain.drive(0.6, 0.0001);
 		}
-		else if(time >= 100 && time <= 110)
+		else if(time >= 100 && time <= 120)
 		{
-			Robot.bot.drivetrain.drive(0.5, 0.5);
+			Robot.bot.drivetrain.drive(0.5, -0.7);
 		}
-		else if(time >= 111 && time <= 175)
+		else if(time >= 121 && time <= 165)
 		{
 			Robot.bot.drivetrain.drive(0.6, 0);
 		}
@@ -70,7 +70,7 @@ public class AutonStrategyLowbar extends AutonStrategy
 	@Override
 	public String getName()
 	{
-		return "Lowbar Drive Timed";
+		return "Lowbar Drive Timed - Reverse";
 	}
 
 }

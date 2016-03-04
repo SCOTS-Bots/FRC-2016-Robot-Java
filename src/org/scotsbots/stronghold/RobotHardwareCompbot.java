@@ -54,9 +54,9 @@ public class RobotHardwareCompbot extends RobotHardware
 		
 		autoFireMode = false;
 		
-		addAuton(new AutonStrategyDrive());
-		addAuton(new AutonStrategyDump());
-		addAuton(new AutonStrategyLowbar());
+		addAuton(new AutonStrategyDriveReverse());
+		addAuton(new AutonStrategyDumpReverse());
+		addAuton(new AutonStrategyLowbarReverse());
 	}
 
 	@Override

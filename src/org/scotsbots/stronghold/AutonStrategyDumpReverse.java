@@ -3,7 +3,7 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.Robot;
 
-public class AutonStrategyDump extends AutonStrategy
+public class AutonStrategyDumpReverse extends AutonStrategy
 {
 	int time = 0;
 	public boolean stopped = false;
@@ -43,7 +43,7 @@ public class AutonStrategyDump extends AutonStrategy
 	@Override
 	public String getName()
 	{
-		return "Dump Ball";
+		return "Dump Ball - Reverse";
 	}
 	
 }

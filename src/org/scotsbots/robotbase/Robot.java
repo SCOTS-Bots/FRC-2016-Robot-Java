@@ -38,7 +38,9 @@ public class Robot extends IterativeRobot
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesIPCamera() && bot.vision != null)
-    	{}
+    	{
+    		bot.vision.initialize();
+    	}
     	if(bot.usesSingleUSBCamera() && bot.vision != null)
     	{
     		bot.vision.initUSBCam();
@@ -61,8 +63,7 @@ public class Robot extends IterativeRobot
     public void autonomousInit()
     {
     	RobotOperation.reset();
-    	//Switches: A1 = true true
-    	//selectedAuton = bot.getSwitchedAuton();
+    	//selectedAuton = bot.getSwitchedAuton(); old non SD auton switching
     	if(auton.getSelected() instanceof AutonStrategy)
     	{
     		selectedAuton = (AutonStrategy) auton.getSelected();
@@ -125,9 +126,13 @@ public class Robot extends IterativeRobot
     
     public void disabledPeriodic()
     {
+    	/* From old non SD code
     	if(selectedAuton != null)
     	{
     		SmartDashboard.putString("Auton Mode Switched", selectedAuton.getName());
+    		
     	}
+    	*/
+    	SmartDashboard.putData("Auton Modes", auton);
     }
 }

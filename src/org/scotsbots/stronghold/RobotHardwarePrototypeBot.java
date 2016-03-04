@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotHardwarePrototypeBot extends RobotHardware
 {
@@ -27,6 +28,9 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	public Spark manipulator;
 	
 	public Spark shroud;
+	
+	//-1 to 1
+	public double speed = 0.75;
 	
 	@Override
 	public void initialize()
@@ -50,12 +54,20 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		shroud = new Spark(7);
 		
 		autoFireMode = false;
+		
+		addAuton(new AutonStrategyDriveReverse());
+		addAuton(new AutonStrategyDumpReverse());
+		addAuton(new AutonStrategyLowbarReverse());
+		addAuton(new AutonStrategyStraightShootBackup());
+		
+		speed = 0.75;
+		SmartDashboard.putNumber("Speed", speed);
 	}
 
 	@Override
 	public void teleop()
 	{
-		RobotOperation.driveTank(1);
+		RobotOperation.driveTank(1, SmartDashboard.getNumber("Speed"));
 		
 		if(Gamepad.secondaryAttackJoystick.getRightT())
 		{
@@ -151,6 +163,12 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 			return true;
 		}
 		return false;
+	}
+	
+	public void logSmartDashboard()
+	{
+		//SmartDashboard.putNumber("Speed", speed);
+		super.logSmartDashboard();
 	}
 	
 	/* for dual Usbs

@@ -3,7 +3,7 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.Robot;
 
-public class AutonStrategyDrive extends AutonStrategy
+public class AutonStrategyDriveReverse extends AutonStrategy
 {
 	public int time = 0;
 	
@@ -31,7 +31,7 @@ public class AutonStrategyDrive extends AutonStrategy
 	@Override
 	public String getName()
 	{
-		return "Drive Straight Timed";
+		return "Drive Straight Timed - Reverse";
 	}
 
 }
