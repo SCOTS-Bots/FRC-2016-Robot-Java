@@ -37,7 +37,7 @@ public class AutonStrategyStraightShootBackup extends AutonStrategy
 		{
 			Robot.bot.drivetrain.drive(0, 0);
 		}
-		if(time > 100 && time <= 200)
+		if(time > 100 && time <= 260)
 		{
 			if(Robot.bot instanceof RobotHardwarePrototypeBot)
 			{
@@ -45,7 +45,7 @@ public class AutonStrategyStraightShootBackup extends AutonStrategy
 							
 				if(protobot.autoShoot())
 				{
-					time = 201;
+					time = 261;
 				}
 			}
 			
@@ -55,7 +55,7 @@ public class AutonStrategyStraightShootBackup extends AutonStrategy
 							
 				if(protobot.autoShoot())
 				{
-					time = 201;
+					time = 261;
 				}
 			}
 		}

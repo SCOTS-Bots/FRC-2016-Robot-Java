@@ -1,5 +1,6 @@
 package org.scotsbots.stronghold;
 
+import org.scotsbots.robotbase.Robot;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;
@@ -31,6 +32,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	
 	//-1 to 1
 	public double speed = 0.75;
+	public double scoopSpeed = 0.5;
 	
 	@Override
 	public void initialize()
@@ -61,7 +63,9 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		addAuton(new AutonStrategyStraightShootBackup());
 		
 		speed = 0.75;
+		scoopSpeed = 0.5;
 		SmartDashboard.putNumber("Speed", speed);
+		SmartDashboard.putNumber("Scoop Speed", scoopSpeed);
 	}
 
 	@Override
@@ -86,6 +90,10 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		{
 			shooterMotor.set(1);
 		}
+		else if(Gamepad.secondaryAttackJoystick.getLB())
+		{
+			shooterMotor.set(-1);
+		}
 		else
 		{
 			shooterMotor.set(0);
@@ -106,12 +114,13 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 			}
 		}
 
-		/* For when we have dual usbs
+		/*
+		//For when we have dual usbs
 		if(Gamepad.secondaryAttackJoystick.getStart())
 		{	
-			//toggleCamera();
+			toggleCamera();
 		}
-		*/
+		 */
 		
 		if(Gamepad.secondaryAttackJoystick.getB())
 		{
@@ -125,7 +134,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		{
 			manipulator.set(0);
 		}
-		shroud.set(Gamepad.secondaryAttackJoystick.getLeftY());
+		shroud.set(Gamepad.secondaryAttackJoystick.getLeftY() * SmartDashboard.getNumber("Scoop Speed"));
 	}
 
 	/**
@@ -171,7 +180,8 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		super.logSmartDashboard();
 	}
 	
-	/* for dual Usbs
+	/*
+	//for dual Usbs
 	public void toggleCamera()
 	{
 		if(Robot.cameraFeeds != null)
@@ -185,6 +195,13 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 				Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam1);
 			}
 		}
+	}
+	*/
+	
+	/*
+	public boolean usesDualUSBCameras()
+	{
+		return true;
 	}
 	*/
 	

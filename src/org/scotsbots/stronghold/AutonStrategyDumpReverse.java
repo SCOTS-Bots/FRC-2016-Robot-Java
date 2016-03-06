@@ -38,6 +38,19 @@ public class AutonStrategyDumpReverse extends AutonStrategy
 				bot.scoopMotor.set(1);
 			}
 		}
+		else
+		{
+			if(Robot.bot instanceof RobotHardwarePrototypeBot)
+			{
+				RobotHardwarePrototypeBot bot = (RobotHardwarePrototypeBot)Robot.bot;
+				bot.scoopMotor.set(0);
+			}
+			else if(Robot.bot instanceof RobotHardwareCompbot)
+			{
+				RobotHardwareCompbot bot = (RobotHardwareCompbot)Robot.bot;
+				bot.scoopMotor.set(0);
+			}
+		}
 	}
 
 	@Override

@@ -24,8 +24,36 @@ public class AutonStrategyLowbarReverse extends AutonStrategy
 		{
 			time++;
 		}
+		if(time > 0 && time <= 20)
+		{
+			if(Robot.bot instanceof RobotHardwarePrototypeBot)
+			{
+				RobotHardwarePrototypeBot protobot = (RobotHardwarePrototypeBot)Robot.bot;			
+				protobot.scoopMotor.set(1);
+			}
+			
+			if(Robot.bot instanceof RobotHardwareCompbot)
+			{
+				RobotHardwareCompbot protobot = (RobotHardwareCompbot)Robot.bot;
+				protobot.scoopMotor.set(1);
+			}
+		}
+		else
+		{
+			if(Robot.bot instanceof RobotHardwarePrototypeBot)
+			{
+				RobotHardwarePrototypeBot protobot = (RobotHardwarePrototypeBot)Robot.bot;			
+				protobot.scoopMotor.set(0);
+			}
+			
+			if(Robot.bot instanceof RobotHardwareCompbot)
+			{
+				RobotHardwareCompbot protobot = (RobotHardwareCompbot)Robot.bot;
+				protobot.scoopMotor.set(0);
+			}
+		}
 		
-		if(time > 0 && time <= 100)
+		if(time > 20 && time <= 100)
 		{
 			Robot.bot.drivetrain.drive(0.6, 0.0001);
 		}

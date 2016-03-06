@@ -27,7 +27,7 @@ public class Robot extends IterativeRobot
 {
 	public static AutonStrategy selectedAuton = null;
 	public static RobotHardware bot = null;	
-	public SendableChooser auton;
+	public SendableChooser autonSwitcher;
 	
 	public static RobotVisionDualUSB cameraFeeds;
 	
@@ -48,13 +48,12 @@ public class Robot extends IterativeRobot
     	if(bot.usesDualUSBCameras())
     	{
     		cameraFeeds = new RobotVisionDualUSB();
-    		cameraFeeds.init();
     	}
-    	auton = new SendableChooser();
-    	auton.addDefault("Nothing", new AutonStrategyDoNothing());
+    	autonSwitcher = new SendableChooser();
+    	autonSwitcher.addDefault("Nothing", new AutonStrategyDoNothing());
     	for(int i = 0; i < Robot.bot.autons.size(); i++)
     	{
-    		auton.addObject(Robot.bot.autons.get(i).getName(), Robot.bot.autons.get(i));
+    		autonSwitcher.addObject(Robot.bot.autons.get(i).getName(), Robot.bot.autons.get(i));
     	}
 		Logger.riolog("S.C.O.T.S. Bots Robot Base code intialized.");
 
@@ -64,9 +63,9 @@ public class Robot extends IterativeRobot
     {
     	RobotOperation.reset();
     	//selectedAuton = bot.getSwitchedAuton(); old non SD auton switching
-    	if(auton.getSelected() instanceof AutonStrategy)
+    	if(autonSwitcher.getSelected() instanceof AutonStrategy)
     	{
-    		selectedAuton = (AutonStrategy) auton.getSelected();
+    		selectedAuton = (AutonStrategy) autonSwitcher.getSelected();
     	}
     	selectedAuton.intialize();
     }
@@ -77,12 +76,16 @@ public class Robot extends IterativeRobot
     	bot.logSmartDashboard();
     	if(bot.usesDualUSBCameras())
     	{
-    	//	cameraFeeds.run();
+    		cameraFeeds.updateCam();
     	}
     }
     
     public void teleopInit()
     {
+    	if(Robot.bot.usesDualUSBCameras())
+    	{
+    		cameraFeeds.init();
+    	}
     	RobotOperation.reset();
     }
     
@@ -90,13 +93,13 @@ public class Robot extends IterativeRobot
     {
     	if(bot.usesIPCamera() && bot.vision != null)
     	{
-    		bot.vision.stream();
+    		//bot.vision.stream();
     	}
 		bot.teleop();
     	bot.logSmartDashboard();
     	if(bot.usesDualUSBCameras())
     	{
-  //  		cameraFeeds.run();
+    		cameraFeeds.updateCam();
     	}
     }
 
@@ -126,13 +129,6 @@ public class Robot extends IterativeRobot
     
     public void disabledPeriodic()
     {
-    	/* From old non SD code
-    	if(selectedAuton != null)
-    	{
-    		SmartDashboard.putString("Auton Mode Switched", selectedAuton.getName());
-    		
-    	}
-    	*/
-    	SmartDashboard.putData("Auton Modes", auton);
+    	SmartDashboard.putData("Auton Modes", autonSwitcher);
     }
 }
