@@ -75,11 +75,11 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		
 		if(Gamepad.secondaryAttackJoystick.getRightT())
 		{
-			scoopMotor.set(1);
+			scoopMotor.set(-1);
 		}
 		else if(Gamepad.secondaryAttackJoystick.getRB())
 		{
-			scoopMotor.set(-1);
+			scoopMotor.set(1);
 		}
 		else
 		{
