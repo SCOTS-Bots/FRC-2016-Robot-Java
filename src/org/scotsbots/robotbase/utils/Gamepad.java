@@ -67,10 +67,6 @@ public class Gamepad
 	 * XBOX 360 Right Horizontal Axis (Left=-1, Right=1)
 	 */
 	private static final int AXIS_RIGHT_X = 2;
-	
-	private static final int AXIS_DPAD_X = 5;
-	
-	private static final int AXIS_DPAD_Y = 6;
 
 	/**
 	 * XBOX 360 Right Vertical Axis (Up=-1, Down=1)
@@ -178,25 +174,29 @@ public class Gamepad
 		return joystick.getRawButton(BUTTON_RT);
 	}
 	
-	
+	//TODO Fix these
+	@Deprecated
 	public boolean getDPadLeft()
 	{
 		return joystick.getPOV() == 270;
 		//return joystick.getRawAxis(AXIS_DPAD_X) < -0.5;
 	}
 
+	@Deprecated
 	public boolean getDPadRight()
 	{
 		return joystick.getPOV() == 90;
 		//return joystick.getRawAxis(AXIS_DPAD_X) > 0.5;
 	}
 
+	@Deprecated
 	public boolean getDPadUp()
 	{
 		return joystick.getPOV() == 0;
 		//return joystick.getRawAxis(AXIS_DPAD_Y) < -0.5;
 	}
 	
+	@Deprecated
 	public boolean getDPadDown()
 	{
 		return joystick.getPOV() == 180;

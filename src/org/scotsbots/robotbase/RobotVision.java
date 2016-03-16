@@ -3,13 +3,10 @@ package org.scotsbots.robotbase;
 import java.io.IOException;
 
 import com.ni.vision.NIVision;
-import com.ni.vision.VisionException;
 import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  * Handles extremely basic vision on Smartdashboard.

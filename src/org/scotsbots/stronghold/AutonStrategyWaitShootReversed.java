@@ -3,9 +3,8 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.Robot;
 
-public class AutonStrategyStraightShootBackup extends AutonStrategy
+public class AutonStrategyWaitShootReversed extends AutonStrategy
 {
-	
 	public int time = 0;
 	public boolean autoFireMode = false;
 	public int autoShootTimer = 0;
@@ -25,19 +24,15 @@ public class AutonStrategyStraightShootBackup extends AutonStrategy
 			time++;
 		}
 		
-		if(time >= 0 && time <= 100)
+		if(time >= 500 && time <= 600)
 		{
 			Robot.bot.drivetrain.drive(0.6, 0);
-		}
-		else if(time >= 301 && time <=350)
-		{
-			Robot.bot.drivetrain.drive(-0.6, 0);
 		}
 		else
 		{
 			Robot.bot.drivetrain.drive(0, 0);
 		}
-		if(time > 100 && time <= 260)
+		if(time >= 600)
 		{
 			if(Robot.bot instanceof RobotHardwarePrototypeBot)
 			{
@@ -45,7 +40,7 @@ public class AutonStrategyStraightShootBackup extends AutonStrategy
 							
 				if(protobot.autoShoot())
 				{
-					time = 261;
+					time = 0;
 					stopped = true;
 				}
 			}
@@ -56,7 +51,7 @@ public class AutonStrategyStraightShootBackup extends AutonStrategy
 							
 				if(protobot.autoShoot())
 				{
-					time = 261;
+					time = 0;
 					stopped = true;
 				}
 			}
@@ -66,7 +61,7 @@ public class AutonStrategyStraightShootBackup extends AutonStrategy
 	@Override
 	public String getName()
 	{
-		return "Drive Straight Shoot Backup - Reverse";
+		return "Wait Drive Straight Shoot - Reverse";
 	}
 
 }

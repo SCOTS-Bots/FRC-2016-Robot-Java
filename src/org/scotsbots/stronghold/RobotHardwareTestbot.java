@@ -1,6 +1,5 @@
 package org.scotsbots.stronghold;
 
-import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;

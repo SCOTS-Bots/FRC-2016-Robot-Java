@@ -10,7 +10,6 @@
 package org.scotsbots.robotbase;
 
 import org.scotsbots.robotbase.utils.Logger;
-import org.scotsbots.stronghold.RobotHardwareCompbot;
 import org.scotsbots.stronghold.RobotHardwarePrototypeBot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;

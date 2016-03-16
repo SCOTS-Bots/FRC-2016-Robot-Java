@@ -1,6 +1,5 @@
 package org.scotsbots.stronghold;
 
-import org.scotsbots.robotbase.Robot;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;
@@ -9,16 +8,15 @@ import org.scotsbots.robotbase.utils.Gamepad;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotHardwarePrototypeBot extends RobotHardware
 {
-	public Victor leftBackMotor;
-	public Victor leftFrontMotor;
-
-	public Victor rightBackMotor;
-	public Victor rightFrontMotor;
+	public Victor leftMotor;
+	
+	public Victor rightMotor;
 
 	public Victor shooterMotor;
 	public Victor scoopMotor;
@@ -26,7 +24,9 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	private int autoShootTimer = 0;
 	private boolean autoFireMode = false;
 	
-	public Spark manipulator;
+	public Talon tapeVertical;
+	public Talon tapeHorizontal;
+	public Talon winch;
 	
 	public Spark shroud;
 	
@@ -38,22 +38,20 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	public void initialize()
 	{
 		vision = new RobotVision("10.47.76.20", "cam0");
-		leftBackMotor = new Victor(2);
-		leftFrontMotor = new Victor(0);
-		rightBackMotor = new Victor(1);
-		rightFrontMotor = new Victor(3); 
-		drivetrain = new RobotDrive(leftBackMotor, leftFrontMotor, rightBackMotor, rightFrontMotor);
+		leftMotor = new Victor(0);
+		rightMotor = new Victor(1); 
+		drivetrain = new RobotDrive(leftMotor, rightMotor);
 		
-		drivetrain.setInvertedMotor(MotorType.kFrontLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
 		
-		shooterMotor = new Victor(5);
-		scoopMotor = new Victor(4);
+		shooterMotor = new Victor(2);  
+		scoopMotor = new Victor(3);     
+		shroud = new Spark(4);      
+		winch = new Talon(5);          
 		
-		manipulator = new Spark(6);
-		
-		shroud = new Spark(7);
+		tapeVertical = new Talon(7);
+		tapeHorizontal = new Talon(8);
 		
 		autoFireMode = false;
 		
@@ -61,6 +59,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		addAuton(new AutonStrategyDumpReverse());
 		addAuton(new AutonStrategyLowbarReverse());
 		addAuton(new AutonStrategyStraightShootBackup());
+		addAuton(new AutonStrategyStraightShootReversed());
 		
 		speed = 0.75;
 		scoopSpeed = 0.5;
@@ -113,6 +112,22 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 				autoFireMode = false;
 			}
 		}
+		
+		if(Gamepad.secondaryAttackJoystick.getA())
+		{
+			winch.set(-1);
+		}
+		else if(Gamepad.secondaryAttackJoystick.getStart())
+		{
+			winch.set(1);
+		}
+		else
+		{
+			winch.set(0);
+		}
+								
+		tapeVertical.set(Gamepad.secondaryAttackJoystick.getRightY() * -1);
+		tapeHorizontal.set(Gamepad.secondaryAttackJoystick.getRightX() * 0.5);
 
 		/*
 		//For when we have dual usbs
@@ -122,18 +137,6 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		}
 		 */
 		
-		if(Gamepad.secondaryAttackJoystick.getB())
-		{
-			manipulator.set(1);
-		}
-		else if(Gamepad.secondaryAttackJoystick.getX())
-		{
-			manipulator.set(-1);
-		}
-		else
-		{
-			manipulator.set(0);
-		}
 		shroud.set(Gamepad.secondaryAttackJoystick.getLeftY() * SmartDashboard.getNumber("Scoop Speed"));
 	}
 

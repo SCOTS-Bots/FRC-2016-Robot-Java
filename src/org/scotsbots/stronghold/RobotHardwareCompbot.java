@@ -1,11 +1,9 @@
 package org.scotsbots.stronghold;
 
-import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;
 import org.scotsbots.robotbase.utils.Gamepad;
-import org.scotsbots.robotbase.utils.Logger;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
