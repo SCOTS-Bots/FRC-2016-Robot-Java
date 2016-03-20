@@ -25,6 +25,11 @@ public class RobotHardwareTestbot extends RobotHardware
 		drivetrain.setInvertedMotor(MotorType.kRearLeft, true);
 		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
 	}
+	
+	public void teleopInit()
+	{
+		
+	}
 
 	@Override
 	public void teleop()

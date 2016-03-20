@@ -30,7 +30,6 @@ public class RobotHardwareCompbot extends RobotHardware
 	@Override
 	public void initialize()
 	{
-		
 		vision = new RobotVision("10.47.76.20", "cam0");          
 		leftMotor = new Victor(0);         //changed to 0, was 1                      
 		rightMotor = new Victor(1); 	   //changed to 1, was 0                    
@@ -57,6 +56,11 @@ public class RobotHardwareCompbot extends RobotHardware
 		addAuton(new AutonStrategyLowbarReverse());
 	}
 
+	public void teleopInit()
+	{
+		
+	}
+	
 	@Override
 	public void teleop()
 	{

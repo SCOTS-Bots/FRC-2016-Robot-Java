@@ -1,63 +1,94 @@
 package org.scotsbots.robotbase;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.Image;
-import edu.wpi.first.wpilibj.CameraServer;
+import org.scotsbots.robotbase.utils.CustomCameraServer;
+
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class RobotVisionDualUSB
 {
-	public final int cam1;
-	public final int cam2;
-	public int curCam;
-	private Image frame;
+	CustomCameraServer cameraServer;
+	USBCamera firstCam = null;
+	USBCamera secondCam = null;
+	String camName1 = "cam3";
+	String camName2 = "cam4";
+
+	String currCam = "cam3";
 	
-	public RobotVisionDualUSB()
+	boolean isCam1 = true;
+
+	public RobotVisionDualUSB(String cam1, String cam2)
 	{
-        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-		cam1 = NIVision.IMAQdxOpenCamera("cam3", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        cam2 = NIVision.IMAQdxOpenCamera("cam4", NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        curCam = cam1;
-        CameraServer.getInstance().setQuality(50);
+		this.camName1 = cam1;
+		this.camName2 = cam2;
 	}
-	
-	public void init()
+
+	public void switchCameras()
 	{
-		changeCam(cam1);
+		/*
+		if (currCam.equals(camName1))
+		{
+			cameraServer.startAutomaticCapture(secondCam);
+			currCam = camName2;
+
+		} else
+		{
+			cameraServer.startAutomaticCapture(firstCam);
+			currCam = camName1;
+		}
+		*/
+		if(isCam1)
+		{
+			cameraServer.startAutomaticCapture(secondCam);
+			currCam = camName2;
+			isCam1 = false;
+		}
+		else
+		{
+			cameraServer.startAutomaticCapture(firstCam);
+			currCam = camName1;
+			isCam1 = true;
+		}
 	}
-	
-	/**
-	 * Stop aka close camera stream
-	 */
-	public void end()
+
+	public void endCameras()
 	{
-		NIVision.IMAQdxStopAcquisition(curCam);
+		if (firstCam != null)
+		{
+			firstCam.closeCamera();
+			firstCam = null;
+		}
+		if (secondCam != null)
+		{
+			secondCam.closeCamera();
+			secondCam = null;
+		}
 	}
-	
-	/**
-	 * Change the camera to get imgs from to a different one
-	 * @param newId for camera
-	 */
-	public void changeCam(int newId)
-    {
-		NIVision.IMAQdxStopAcquisition(curCam);
-    	NIVision.IMAQdxConfigureGrab(newId);
-    	NIVision.IMAQdxStartAcquisition(newId);
-    	curCam = newId;
-    }
-    
-	/**
-	 * Get the img from current camera and give it to the server
-	 */
-    public void updateCam()
-    {
-    	try
-    	{
-	    	NIVision.IMAQdxGrab(curCam, frame, 1);
-	        CameraServer.getInstance().setImage(frame);
-    	} catch(Exception e)
-    	{
-    		System.out.println("Camera error, most likely camera not found.");
-    		e.printStackTrace();
-    	}
-    }
+
+	public void initializeCameras()
+	{
+		endCameras();
+		try
+		{
+			firstCam = new USBCamera(camName1);
+		} catch (Exception e)
+		{
+			firstCam = null;
+		}
+
+		try
+		{
+			secondCam = new USBCamera(camName2);
+		} catch (Exception e)
+		{
+			secondCam = null;
+		}
+
+		if (cameraServer == null)
+		{
+			cameraServer = CustomCameraServer.getInstance();
+			cameraServer.setQuality(50);
+		}
+		currCam = camName1;
+		cameraServer.startAutomaticCapture(firstCam);
+	}
 }

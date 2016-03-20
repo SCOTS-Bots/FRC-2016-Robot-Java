@@ -3,6 +3,7 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.RobotHardware;
 import org.scotsbots.robotbase.RobotOperation;
 import org.scotsbots.robotbase.RobotVision;
+import org.scotsbots.robotbase.RobotVisionDualUSB;
 import org.scotsbots.robotbase.utils.Gamepad;
 
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -31,13 +32,18 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	public Spark shroud;
 	
 	//-1 to 1
-	public double speed = 0.75;
+	public double speed = 1;
 	public double scoopSpeed = 0.5;
+	
+	boolean camSwitchBump = false;
+	int camSwitchBumpTime = 0;
 	
 	@Override
 	public void initialize()
 	{
-		vision = new RobotVision("10.47.76.20", "cam0");
+		vision = new RobotVision("10.47.76.20", "cam3");
+		dualUSBVision = new RobotVisionDualUSB("cam3", "cam4");
+		
 		leftMotor = new Victor(0);
 		rightMotor = new Victor(1); 
 		drivetrain = new RobotDrive(leftMotor, rightMotor);
@@ -61,12 +67,25 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		addAuton(new AutonStrategyStraightShootBackup());
 		addAuton(new AutonStrategyStraightShootReversed());
 		
-		speed = 0.75;
+		speed = 1;
 		scoopSpeed = 0.5;
 		SmartDashboard.putNumber("Speed", speed);
 		SmartDashboard.putNumber("Scoop Speed", scoopSpeed);
+		
+		camSwitchBump = false;
+		camSwitchBumpTime = 0;
 	}
 
+	public void teleopInit()
+	{
+		speed = 1;
+		scoopSpeed = 0.5;
+		SmartDashboard.putNumber("Speed", speed);
+		SmartDashboard.putNumber("Scoop Speed", scoopSpeed);
+		camSwitchBump = false;
+		camSwitchBumpTime = 0;
+	}
+	
 	@Override
 	public void teleop()
 	{
@@ -128,14 +147,22 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 								
 		tapeVertical.set(Gamepad.secondaryAttackJoystick.getRightY() * -1);
 		tapeHorizontal.set(Gamepad.secondaryAttackJoystick.getRightX() * 0.5);
-
-		/*
-		//For when we have dual usbs
-		if(Gamepad.secondaryAttackJoystick.getStart())
+		
+		if(camSwitchBump && Gamepad.secondaryAttackJoystick.getSelect())
 		{	
-			toggleCamera();
+			dualUSBVision.switchCameras();
+			camSwitchBump = false;
 		}
-		 */
+		
+		if(!camSwitchBump)
+		{
+			camSwitchBumpTime++;
+			if(camSwitchBumpTime >100)
+			{
+				camSwitchBump = true;
+				camSwitchBumpTime = 0;
+			}
+		}
 		
 		shroud.set(Gamepad.secondaryAttackJoystick.getLeftY() * SmartDashboard.getNumber("Scoop Speed"));
 	}
@@ -179,40 +206,15 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	
 	public void logSmartDashboard()
 	{
-		//SmartDashboard.putNumber("Speed", speed);
+		SmartDashboard.putNumber("Speed", speed);
 		super.logSmartDashboard();
 	}
 	
-	/*
-	//for dual Usbs
-	public void toggleCamera()
-	{
-		if(Robot.cameraFeeds != null)
-		{
-			if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam1)
-			{
-				Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam2);
-			}
-			else if(Robot.cameraFeeds.curCam == Robot.cameraFeeds.cam2)
-			{
-				Robot.cameraFeeds.changeCam(Robot.cameraFeeds.cam1);
-			}
-		}
-	}
-	*/
-	
-	/*
 	public boolean usesDualUSBCameras()
 	{
 		return true;
 	}
-	*/
 	
-	public boolean usesSingleUSBCamera()
-	{
-		return true;
-	}
-
 	@Override
 	public String getName()
 	{

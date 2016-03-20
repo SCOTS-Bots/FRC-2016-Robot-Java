@@ -10,6 +10,7 @@ public class AutonStrategyDriveReverse extends AutonStrategy
 	@Override
 	public void intialize()
 	{
+		time = 0;
 	}
 
 	@Override

@@ -79,7 +79,7 @@ public class Gamepad
 	
 	private static final int BUTTON_RT = 8;
 	private static final int BUTTON_LT = 7;
-
+	private static final int BUTTON_SELECT = 9;
 
 	private Gamepad(int port)
 	{
@@ -259,5 +259,10 @@ public class Gamepad
 	public boolean getL3()
 	{
 		return joystick.getRawButton(BUTTON_L3);
+	}
+	
+	public boolean getSelect()
+	{
+		return joystick.getRawButton(BUTTON_SELECT);
 	}
 }

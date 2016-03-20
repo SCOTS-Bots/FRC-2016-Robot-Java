@@ -28,8 +28,6 @@ public class Robot extends IterativeRobot
 	public static RobotHardware bot = null;	
 	public SendableChooser autonSwitcher;
 	
-	public static RobotVisionDualUSB cameraFeeds;
-	
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
@@ -44,9 +42,9 @@ public class Robot extends IterativeRobot
     	{
     		bot.vision.initUSBCam();
     	}
-    	if(bot.usesDualUSBCameras())
+    	if(bot.usesDualUSBCameras() && bot.dualUSBVision != null)
     	{
-    		cameraFeeds = new RobotVisionDualUSB();
+    		bot.dualUSBVision.initializeCameras();
     	}
     	autonSwitcher = new SendableChooser();
     	autonSwitcher.addDefault("Nothing", new AutonStrategyDoNothing());
@@ -55,7 +53,6 @@ public class Robot extends IterativeRobot
     		autonSwitcher.addObject(Robot.bot.autons.get(i).getName(), Robot.bot.autons.get(i));
     	}
 		Logger.riolog("S.C.O.T.S. Bots Robot Base code intialized.");
-
     }
     
     public void autonomousInit()
@@ -73,18 +70,11 @@ public class Robot extends IterativeRobot
     {
     	selectedAuton.update();
     	bot.logSmartDashboard();
-    	if(bot.usesDualUSBCameras())
-    	{
-    		cameraFeeds.updateCam();
-    	}
     }
     
     public void teleopInit()
     {
-    	if(Robot.bot.usesDualUSBCameras())
-    	{
-    		cameraFeeds.init();
-    	}
+    	Robot.bot.teleopInit();
     	RobotOperation.reset();
     }
     
@@ -96,10 +86,6 @@ public class Robot extends IterativeRobot
     	}
 		bot.teleop();
     	bot.logSmartDashboard();
-    	if(bot.usesDualUSBCameras())
-    	{
-    		cameraFeeds.updateCam();
-    	}
     }
 
     public void testInit()
@@ -111,18 +97,15 @@ public class Robot extends IterativeRobot
     {
     	LiveWindow.run();
     	bot.logSmartDashboard();
-    	if(bot.usesDualUSBCameras())
-    	{
-    		cameraFeeds.updateCam();
-    	}
     }
     
     public void disabledInit() 
     {
 		RobotOperation.reset();
-		if(bot.usesDualUSBCameras())
+		
+		if(Robot.bot.usesDualUSBCameras() && Robot.bot.dualUSBVision != null)
 		{
-			cameraFeeds.end();
+			//Robot.bot.dualUSBVision.endCameras();
 		}
     }
     

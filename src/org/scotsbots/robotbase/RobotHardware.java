@@ -34,10 +34,12 @@ public abstract class RobotHardware
 	public static DigitalInput switch2;
 	
 	public RobotVision vision;
+	public RobotVisionDualUSB dualUSBVision;
 	
 	public List<AutonStrategy>autons = new ArrayList<AutonStrategy>();
 	
 	public abstract void initialize();
+	public abstract void teleopInit();
 	public abstract void teleop();
 	public abstract String getName();
 	
