@@ -9,12 +9,12 @@ public class RobotVisionDualUSB
 	CustomCameraServer cameraServer;
 	USBCamera firstCam = null;
 	USBCamera secondCam = null;
-	String camName1 = "cam3";
-	String camName2 = "cam4";
+	String camName1 = "cam0";
+	String camName2 = "cam1";
 
-	String currCam = "cam3";
+	String currCam = "cam0";
 	
-	boolean isCam1 = true;
+	//boolean isCam1 = true;
 
 	public RobotVisionDualUSB(String cam1, String cam2)
 	{
@@ -24,7 +24,6 @@ public class RobotVisionDualUSB
 
 	public void switchCameras()
 	{
-		/*
 		if (currCam.equals(camName1))
 		{
 			cameraServer.startAutomaticCapture(secondCam);
@@ -35,7 +34,7 @@ public class RobotVisionDualUSB
 			cameraServer.startAutomaticCapture(firstCam);
 			currCam = camName1;
 		}
-		*/
+		/*
 		if(isCam1)
 		{
 			cameraServer.startAutomaticCapture(secondCam);
@@ -48,6 +47,7 @@ public class RobotVisionDualUSB
 			currCam = camName1;
 			isCam1 = true;
 		}
+		*/
 	}
 
 	public void endCameras()

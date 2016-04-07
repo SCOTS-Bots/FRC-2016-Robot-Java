@@ -20,7 +20,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	public Victor rightMotor;
 
 	public Victor shooterMotor;
-	public Victor scoopMotor;
+	public Victor intake;
 	
 	private int autoShootTimer = 0;
 	private boolean autoFireMode = false;
@@ -33,7 +33,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	
 	//-1 to 1
 	public double speed = 1;
-	public double scoopSpeed = 0.5;
+	public double scoopSpeed = 1;
 	
 	boolean camSwitchBump = false;
 	int camSwitchBumpTime = 0;
@@ -42,7 +42,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 	public void initialize()
 	{
 		vision = new RobotVision("10.47.76.20", "cam3");
-		dualUSBVision = new RobotVisionDualUSB("cam3", "cam4");
+		dualUSBVision = new RobotVisionDualUSB("cam3", "cam5");
 		
 		leftMotor = new Victor(0);
 		rightMotor = new Victor(1); 
@@ -52,7 +52,7 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		drivetrain.setInvertedMotor(MotorType.kRearRight, true);
 		
 		shooterMotor = new Victor(2);  
-		scoopMotor = new Victor(3);     
+		intake = new Victor(3);     
 		shroud = new Spark(4);      
 		winch = new Talon(5);          
 		
@@ -61,14 +61,17 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		
 		autoFireMode = false;
 		
-		addAuton(new AutonStrategyDriveReverse());
-		addAuton(new AutonStrategyDumpReverse());
-		addAuton(new AutonStrategyLowbarReverse());
-		addAuton(new AutonStrategyStraightShootBackup());
-		addAuton(new AutonStrategyStraightShootReversed());
+		addAuton(new AutonStrategyDriveRockwallPos5());
+		addAuton(new AutonStrategyDriveRockwallPos34());
+		addAuton(new AutonStrategyDriveRoughTerrain());
+		addAuton(new AutonStrategyLowbarPortcullis());
+		addAuton(new AutonStrategyRockwallLowGoal());
+		addAuton(new AutonStrategyDriveLowbarLowgoal());
+		addAuton(new AutonStrategyDriveCheval());
+		addAuton(new AutonStrategyDriveMoat());
 		
 		speed = 1;
-		scoopSpeed = 0.5;
+		scoopSpeed = 1;
 		SmartDashboard.putNumber("Speed", speed);
 		SmartDashboard.putNumber("Scoop Speed", scoopSpeed);
 		
@@ -78,8 +81,6 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 
 	public void teleopInit()
 	{
-		speed = 1;
-		scoopSpeed = 0.5;
 		SmartDashboard.putNumber("Speed", speed);
 		SmartDashboard.putNumber("Scoop Speed", scoopSpeed);
 		camSwitchBump = false;
@@ -93,15 +94,15 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		
 		if(Gamepad.secondaryAttackJoystick.getRightT())
 		{
-			scoopMotor.set(-1);
+			intake.set(-1);
 		}
 		else if(Gamepad.secondaryAttackJoystick.getRB())
 		{
-			scoopMotor.set(1);
+			intake.set(1);
 		}
 		else
 		{
-			scoopMotor.set(0);
+			intake.set(0);
 		}
 		
 		if(Gamepad.secondaryAttackJoystick.getLeftT())
@@ -176,15 +177,15 @@ public class RobotHardwarePrototypeBot extends RobotHardware
 		autoShootTimer++;
 		if(autoShootTimer < 5)
 		{
-			scoopMotor.set(1);
+			intake.set(1);
 		}
 		else if(autoShootTimer > 50 && autoShootTimer < 150)
 		{
-			scoopMotor.set(-1);
+			intake.set(-1);
 		}
 		else
 		{
-			scoopMotor.set(0);
+			intake.set(0);
 		}
 		
 		if(autoShootTimer > 5 && autoShootTimer < 150)

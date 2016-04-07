@@ -3,7 +3,7 @@ package org.scotsbots.stronghold;
 import org.scotsbots.robotbase.AutonStrategy;
 import org.scotsbots.robotbase.Robot;
 
-public class AutonStrategyDriveReverse extends AutonStrategy
+public class AutonStrategyDriveRoughTerrain extends AutonStrategy
 {
 	public int time = 0;
 	
@@ -18,10 +18,14 @@ public class AutonStrategyDriveReverse extends AutonStrategy
 	{
 		time++;
 
-		if(time >= 0 && time <= 100)
+		if(time >= 0 && time <= 30)
 		{
-			//drive backwards
-			Robot.bot.drivetrain.drive(0.6, 0);
+			Robot.bot.drivetrain.drive(-0.3, 0);
+		}
+
+		else if(time >= 30 && time <= 185)
+		{
+			Robot.bot.drivetrain.drive(-0.6, 0);
 		}
 		else
 		{
@@ -32,7 +36,7 @@ public class AutonStrategyDriveReverse extends AutonStrategy
 	@Override
 	public String getName()
 	{
-		return "Drive Straight Timed - Reverse";
+		return "Drive Straight - Rough Terrain";
 	}
 
 }

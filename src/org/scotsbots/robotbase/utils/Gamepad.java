@@ -41,7 +41,7 @@ public class Gamepad
 	/**
 	 * XBOX 360 Right Bumper (Top)
 	 */
-	private static final int BUTTON_RB = 6;
+	private static final int BUTTON_RB = 6; // right bumper top
 
 	/**
 	 * XBOX 360 Back Button
@@ -77,7 +77,7 @@ public class Gamepad
 	
 	private static final int BUTTON_L3 = 11;
 	
-	private static final int BUTTON_RT = 8;
+	private static final int BUTTON_RT = 8; //Right trigger, bottom
 	private static final int BUTTON_LT = 7;
 	private static final int BUTTON_SELECT = 9;
 
@@ -171,7 +171,7 @@ public class Gamepad
 	
 	public boolean getRightT()
 	{
-		return joystick.getRawButton(BUTTON_RT);
+		return joystick.getRawButton(BUTTON_RT);      //right trigger
 	}
 	
 	//TODO Fix these
@@ -218,7 +218,7 @@ public class Gamepad
 	 */
 	public boolean getRB()
 	{
-		return joystick.getRawButton(BUTTON_RB);
+		return joystick.getRawButton(BUTTON_RB);  
 	}
 
 	public boolean getA()

@@ -32,7 +32,7 @@ public class Robot extends IterativeRobot
     public void robotInit() 
     {
     	Logger.riolog("S.C.O.T.S. Bots Robot Base code Intializing.");
-    	bot = new RobotHardwareCompbot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
+    	bot = new RobotHardwarePrototypeBot(); //This changes which bot it loads. TODO Add abstraction way of doing this.
     	bot.initialize();
     	RobotOperation.initialize();
     	if(bot.usesIPCamera() && bot.vision != null)
@@ -77,6 +77,10 @@ public class Robot extends IterativeRobot
     {
     	Robot.bot.teleopInit();
     	RobotOperation.reset();
+    	if(bot.usesDualUSBCameras() && bot.dualUSBVision != null)
+    	{
+    		bot.dualUSBVision.initializeCameras();
+    	}
     }
     
     public void teleopPeriodic() 
@@ -108,10 +112,23 @@ public class Robot extends IterativeRobot
 		{
 			//Robot.bot.dualUSBVision.endCameras();
 		}
+
     }
     
     public void disabledPeriodic()
     {
-    	SmartDashboard.putData("Auton Modes", autonSwitcher);
+    	if(autonSwitcher == null)
+    	{
+    		autonSwitcher = new SendableChooser();
+        	autonSwitcher.addDefault("Nothing", new AutonStrategyDoNothing());
+        	for(int i = 0; i < Robot.bot.autons.size(); i++)
+        	{
+        		autonSwitcher.addObject(Robot.bot.autons.get(i).getName(), Robot.bot.autons.get(i));
+        	}
+    	}
+    	else
+    	{
+    		SmartDashboard.putData("Auton Modes", autonSwitcher);
+    	}
     }
 }
